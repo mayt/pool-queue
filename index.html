@@ -121,7 +121,7 @@
                         </li>
                         <li id="{{item.id}}" class="row list-group-item no-sides" ng-repeat="item in queue" ng-class="{'list-group-item-success': myId == item.id}" ng-if="!item.attributes.playing">
                             <span class="col-md-1"><h5>{{$index + 1}}</h5></span>
-                            <span class="col-md-7"><h4>{{item.attributes.name}}</h4></span>
+                            <span class="col-md-7"><h4>{{item.attributes.name}} <small ng-if="myId == item.id">My wait time is about ~{{($index - 1) * 10}} minutes</small></h4></span>
                             <span class="col-md-2"><h5>{{item.createdAt | date:'MMM dd @ h:mma'}}</h5></span>
                             <span class="col-md-2 text-right">
                                 <button action="removeFromQueue(item)" item="item" confirm-button class="btn btn-default">Remove</button>
