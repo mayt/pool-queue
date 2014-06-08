@@ -108,6 +108,48 @@ var ConfirmButton = function() {
     };
 };
 
+var DoubleClickConfirmButton = function($timeout) {
+    return {
+        scope: {
+            action: '&',
+            item: '='
+        },
+        replace: true,
+        transclude: true,
+        template: '<button ng-transclude></button>',
+        link: function(scope, element, attrs) {
+            var button = element;
+            var text = undefined;
+            var confirmBindFn = function(){
+                button.unbind();
+                if (text === undefined) {
+                    text = button.html();
+                }
+                button.removeClass("btn-default");
+                button.addClass("btn-danger");
+                button.html("<span class='glyphicon glyphicon-warning-sign'></span> Are you sure?");
+                button.bind('click', function() {
+                    scope.action({item: scope.item});
+                });
+                $timeout(function() {
+                    button.unbind();
+                    button.removeClass("btn-danger");
+                    button.addClass("btn-default");
+                    button.html(text);
+                    button.bind('click',confirmBindFn);
+                }, 3000);
+            };
+
+            button.bind('click', function(){
+                confirmBindFn();
+            });
+
+
+
+        }
+    };
+};
+
 angular.module('poolQueue', ['ngCookies'])
     .config (function($locationProvider) {
         $locationProvider.html5Mode(true);
@@ -121,6 +163,8 @@ angular.module('poolQueue', ['ngCookies'])
     })
     .controller("MainController", ['$scope', '$timeout', '$interval', '$cookies', 'Parse', MainController])
     .directive("confirmButton", [ConfirmButton])
+    .directive("doubleClickConfirmButton", ['$timeout', DoubleClickConfirmButton])
+
 ;
 
 
