@@ -119,7 +119,7 @@
                             <span class="col-md-2"><h4>Added At</h4></span>
                             <span class="col-md-2"></span>
                         </li>
-                        <li ng-id="{{item.id}}" class="row list-group-item no-sides" ng-repeat="item in queue" ng-class="{'list-group-item-success': myId == item.id}" ng-if="!item.attributes.playing">
+                        <li id="{{item.id}}" class="row list-group-item no-sides" ng-repeat="item in queue" ng-class="{'list-group-item-success': myId == item.id}" ng-if="!item.attributes.playing">
                             <span class="col-md-1"><h5>{{$index + 1}}</h5></span>
                             <span class="col-md-7"><h4>{{item.attributes.name}}</h4></span>
                             <span class="col-md-2"><h5>{{item.createdAt | date:'MMM dd @ h:mma'}}</h5></span>

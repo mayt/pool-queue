@@ -1,7 +1,7 @@
 
 
 // A Controller for your app
-var MainController = function($scope, $interval, $cookies, $location, Parse) {
+var MainController = function($scope, $interval, $cookies, $location, $anchorScroll, Parse) {
     $scope.myId = $cookies.myId || "";
 
     $scope.addUser = function () {
@@ -100,6 +100,9 @@ var ConfirmButton = function() {
 };
 
 angular.module('poolQueue', ['ngCookies'])
+    .config (function($locationProvider) {
+        $locationProvider.html5Mode(true);
+    })
     .factory('Parse', function(){
         Parse.initialize("IEnKKbGzw2nj0NsUjwPeBboTuG6HePdAJqFA0Lyj", "uhrhFKOg8xNhluefffKFsXF47X7JHR2ZzvzeAxfy");
         return {
@@ -107,7 +110,7 @@ angular.module('poolQueue', ['ngCookies'])
             Query: Parse.Query
         };
     })
-    .controller("MainController", ['$scope', '$interval', '$cookies', '$location', 'Parse', MainController])
+    .controller("MainController", ['$scope', '$interval', '$cookies', '$location', '$anchorScroll', 'Parse', MainController])
     .directive("confirmButton", [ConfirmButton])
 ;
 
