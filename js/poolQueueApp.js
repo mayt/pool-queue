@@ -151,9 +151,6 @@ var DoubleClickConfirmButton = function($timeout) {
 };
 
 angular.module('poolQueue', ['ngCookies'])
-    .config (function($locationProvider) {
-        $locationProvider.html5Mode(true);
-    })
     .factory('Parse', function(){
         Parse.initialize("tUk0p1PFK2PXzOJv4Yp4jV9xKczuxqHhAlLd88Do", "8Q90XyzROD9s5hCgVJe6UL8C01bZa2rQppmfYRJu");
         return {
