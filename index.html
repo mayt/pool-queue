@@ -88,14 +88,14 @@
                 <div class="panel-body">
                     <div class="row text-center">
                         <div class="col-md-offset-1 col-md-4">
-                            <h2>{{queue[0].attributes.name}}</h2>
+                            <h2 id="{{queue[0].id}}">{{queue[0].attributes.name}}</h2>
                             <button action="removeFromQueue(item)" item="queue[0]" confirm-button class="btn btn-default">Remove</button>
                         </div>
                         <div class="col-md-2">
                             <h3>vs.</h3>
                         </div>
                         <div class="col-md-4" >
-                            <h2 ng-if="queue.length > 1">{{queue[1].attributes.name}}</h2>
+                            <h2 ng-if="queue.length > 1" id="{{queue[1].id}}">{{queue[1].attributes.name}}</h2>
                             <h2 ng-if="queue.length <= 1">Awaiting Challenger</h2>
                             <button ng-if="queue.length > 1" action="removeFromQueue(item)" item="queue[1]" confirm-button class="btn btn-default">Remove</button>
                         </div>

@@ -1,7 +1,7 @@
 
 
 // A Controller for your app
-var MainController = function($scope, $interval, $cookies, $location, $anchorScroll, Parse) {
+var MainController = function($scope, $timeout, $interval, $cookies, Parse) {
     $scope.myId = $cookies.myId || "";
 
     $scope.addUser = function () {
@@ -12,13 +12,22 @@ var MainController = function($scope, $interval, $cookies, $location, $anchorScr
                 $scope.fetchQueue();
                 $scope.myId = result.id;
                 $cookies.myId = result.id;
-                $location.hash(result.id);
-                $anchorScroll();
+
+                /**
+                 * Should move this to
+                 */
+                $timeout(function() {
+                    $('html, body').animate({
+                        scrollTop: $("#" + result.id).offset().top
+                    }, 400);
+                }, 300);
             });
             $scope.userName = "";
         }
 
     };
+
+
 
     $scope.fetchQueue = function () {
         $scope.error = undefined;
@@ -27,7 +36,7 @@ var MainController = function($scope, $interval, $cookies, $location, $anchorScr
             success: function(results) {
                 $scope.$apply(function() {
                     $scope.queue = results;
-                    $scope.queueLength = results.length - 1;
+                    $scope.queueLength = Math.max(results.length - 1, 0);
                     for (var i =0 ; i < 2 && i < results.length; i++) {
                         results[i].set('playing', true);
                     }
@@ -110,7 +119,7 @@ angular.module('poolQueue', ['ngCookies'])
             Query: Parse.Query
         };
     })
-    .controller("MainController", ['$scope', '$interval', '$cookies', '$location', '$anchorScroll', 'Parse', MainController])
+    .controller("MainController", ['$scope', '$timeout', '$interval', '$cookies', 'Parse', MainController])
     .directive("confirmButton", [ConfirmButton])
 ;
 
