@@ -41,7 +41,7 @@
             </div><!--/.navbar-collapse -->
         </div>
     </div>
-    <div>
+    <div class="wrapper">
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
@@ -72,86 +72,87 @@
         </div>
 
         <div class="container">
-            <div class="height-pad">
-                <div ng-cloak ng-if="error" class="alert alert-danger">
-                    <h4>Error!</h4>
-                    <p ng-if="error.message">
-                        {{error.message}}
-                    </p>
-                </div>
+            <div ng-cloak ng-if="error" class="alert alert-danger">
+                <h4>Error!</h4>
+                <p ng-if="error.message">
+                    {{error.message}}
+                </p>
+            </div>
 
-                <div ng-cloak class="panel panel-default" ng-if="queue">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">
-                            <span class="glyphicon glyphicon-play"></span> Now Playing
-                        </h2>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row text-center">
-                            <div class="col-sm-offset-1 col-sm-4">
-                                <h2 id="{{queue[0].id}}">{{queue[0].attributes.name}}</h2>
-                                <button action="removeFromQueue(item)" item="queue[0]" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Remove</button>
-                            </div>
-                            <div class="col-sm-2">
-                                <h3>vs.</h3>
-                            </div>
-                            <div class="col-sm-4" >
-                                <h2 ng-if="queue.length > 1" id="{{queue[1].id}}">{{queue[1].attributes.name}}</h2>
-                                <h2 ng-if="queue.length <= 1">Awaiting Challenger</h2>
-                                <button ng-if="queue.length > 1" action="removeFromQueue(item)" item="queue[1]" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Remove</button>
-                            </div>
+            <div ng-cloak class="panel panel-default" ng-if="queue">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <span class="glyphicon glyphicon-play"></span> Now Playing
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row text-center">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <h2 id="{{queue[0].id}}">{{queue[0].attributes.name}}</h2>
+                            <button action="removeFromQueue(item)" item="queue[0]" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3>vs.</h3>
+                        </div>
+                        <div class="col-sm-4" >
+                            <h2 ng-if="queue.length > 1" id="{{queue[1].id}}">{{queue[1].attributes.name}}</h2>
+                            <h2 ng-if="queue.length <= 1">Awaiting Challenger</h2>
+                            <button ng-if="queue.length > 1" action="removeFromQueue(item)" item="queue[1]" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Remove</button>
                         </div>
                     </div>
-                    <br />
                 </div>
-
-                <div ng-cloak class="panel panel-default" ng-if="queue && queue.length > 2" >
-                    <div class="panel-heading">
-                        <h2 class="panel-title">
-                            <span class="glyphicon glyphicon-time"></span> The Line
-                        </h2>
-                    </div>
-                    <br />
-                    <div class="panel-body">
-                        <ul  class="list-group">
-                            <li class="row list-group-item no-sides head">
-                                <span class="col-xs-1"><h4>#</h4></span>
-                                <span class="col-xs-7"><h4>Chumps</h4></span>
-                                <span class="col-xs-2"><h4>Added At</h4></span>
-                                <span class="col-xs-2"></span>
-                            </li>
-                            <li id="{{item.id}}" class="row list-group-item no-sides" ng-repeat="item in queue" ng-class="{'list-group-item-success': myId == item.id}" ng-if="!item.attributes.playing">
-                                <span class="col-xs-1"><h5>{{$index + 1}}</h5></span>
-                                <span class="col-xs-7"><h4>{{item.attributes.name}} <small ng-if="myId == item.id">My wait time is about ~{{($index - 1) * 10}} minutes</small></h4></span>
-                                <span class="col-xs-2"><h5>{{item.createdAt | date:'MMM dd @ h:mma'}}</h5></span>
-                                <span class="col-xs-2 text-right">
-                                    <button action="removeFromQueue(item)" item="item" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
-                                </span>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-
                 <br />
-
-                <div class="row" ng-if="queue">
-                    <div class="text-center">
-                        <button action="removeAll()" item="" double-click-confirm-button class="btn btn-success"><span class="glyphicon glyphicon-trash"></span> Clear Queue</button>
-                    </div>
-                </div>
-
             </div>
+
+            <div ng-cloak class="panel panel-default" ng-if="queue && queue.length > 2" >
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <span class="glyphicon glyphicon-time"></span> The Line
+                    </h2>
+                </div>
+                <br />
+                <div class="panel-body">
+                    <ul  class="list-group">
+                        <li class="row list-group-item no-sides head">
+                            <span class="col-xs-1"><h4>#</h4></span>
+                            <span class="col-xs-7"><h4>Chumps</h4></span>
+                            <span class="col-xs-2"><h4>Added At</h4></span>
+                            <span class="col-xs-2"></span>
+                        </li>
+                        <li id="{{item.id}}" class="row list-group-item no-sides" ng-repeat="item in queue" ng-class="{'list-group-item-success': myId == item.id}" ng-if="!item.attributes.playing">
+                            <span class="col-xs-1"><h5>{{$index + 1}}</h5></span>
+                            <span class="col-xs-7"><h4>{{item.attributes.name}} <small ng-if="myId == item.id">My wait time is about ~{{($index - 1) * 10}} minutes</small></h4></span>
+                            <span class="col-xs-2"><h5>{{item.createdAt | date:'MMM dd @ h:mma'}}</h5></span>
+                            <span class="col-xs-2 text-right">
+                                <button action="removeFromQueue(item)" item="item" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+                            </span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+
             <br />
 
-            <footer>
-                <hr />
-                <p>&copy; Quantcast Corporation 2014</p>
-            </footer>
-        </div> <!-- /container -->
-        <script type="text/javascript" src="js/poolQueueApp.js"></script>
+            <div class="row" ng-if="queue">
+                <div class="text-center">
+                    <button action="removeAll()" item="" double-click-confirm-button class="btn btn-success"><span class="glyphicon glyphicon-trash"></span> Clear Queue</button>
+                </div>
+            </div>
 
+            <br />
+        </div> <!-- /container -->
     </div>
+    <footer>
+        <div class="container">
+            <hr />
+            <p>&copy; Quantcast Corporation 2014</p>
+        </div>
+
+    </footer>
+
+    <script type="text/javascript" src="js/poolQueueApp.js"></script>
+
 </body>
 </html>
