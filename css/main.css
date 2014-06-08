@@ -1,0 +1,20 @@
+.jumbotron {
+    background: url(../img/pool-table.jpg) no-repeat center center ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-shadow: 1px 1px #333;
+    color: whitesmoke;
+}
+.list-group-item.no-sides {
+    border-left: 0px;
+    border-right: 0px;
+}
+.list-group-item.no-sides:first-child, .list-group-item.no-sides:last-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+.list-group-item.head {
+    background-color: #f9f9f9;
+}

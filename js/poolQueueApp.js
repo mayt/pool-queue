@@ -1,28 +1,42 @@
 
 
 // A Controller for your app
-var MainController = function($scope, $interval, Parse) {
+var MainController = function($scope, $interval, $cookies, $location, Parse) {
+    $scope.myId = $cookies.myId || "";
+
     $scope.addUser = function () {
-        var queueEntry = new Parse.Queue();
-        queueEntry.set('name', $scope.userName);
-        queueEntry.save().then(function(){
-            $scope.fetchQueue();
-        });
-        $scope.userName = "";
+        if ($scope.userName) {
+            var queueEntry = new Parse.Queue();
+            queueEntry.set('name', $scope.userName);
+            queueEntry.save().then(function(result){
+                $scope.fetchQueue();
+                $scope.myId = result.id;
+                $cookies.myId = result.id;
+                $location.hash(result.id);
+                $anchorScroll();
+            });
+            $scope.userName = "";
+        }
 
     };
 
     $scope.fetchQueue = function () {
+        $scope.error = undefined;
         var queueQuery = new Parse.Query(Parse.Queue);
         queueQuery.find({
             success: function(results) {
                 $scope.$apply(function() {
                     $scope.queue = results;
-                    $scope.queueLength = results.length;
+                    $scope.queueLength = results.length - 1;
+                    for (var i =0 ; i < 2 && i < results.length; i++) {
+                        results[i].set('playing', true);
+                    }
                 });
             },
             error: function(error) {
-                $scope.error = error;
+                $scope.$apply(function() {
+                    $scope.error = error;
+                });
             }
         });
     };
@@ -33,7 +47,9 @@ var MainController = function($scope, $interval, Parse) {
                 $scope.fetchQueue();
             },
             error: function(error){
-                $scope.error = error;
+                $scope.$apply(function() {
+                    $scope.error = error;
+                });
             }
         });
 
@@ -45,8 +61,9 @@ var MainController = function($scope, $interval, Parse) {
                 $scope.fetchQueue();
             },
             error: function(error){
-                $scope.error = error;
-            }
+                $scope.$apply(function() {
+                    $scope.error = error;
+                });            }
         });
     };
 
@@ -65,29 +82,24 @@ var ConfirmButton = function() {
         template: '<button ng-transclude></button>',
         link: function(scope, element, attrs) {
             var button = element;
-            button.bind('click', function(){
+            button.bind('mouseenter', function(){
                 button.removeClass("btn-default");
                 button.addClass("btn-danger");
-                button.text("Are you sure?");
-                button.unbind().bind('click', function() {
-                    scope.action({item: scope.item});
-                });
+            });
+
+            button.bind('mouseleave', function(){
+                button.addClass("btn-default");
+                button.removeClass("btn-danger");
+            });
+
+            button.bind('click', function() {
+                scope.action({item: scope.item});
             });
         }
     };
 };
 
-angular.module('poolQueue', [])
-    .factory('Cookie', function() {
-        var userId = getCookie("userId");
-        if (!userId) {
-            userId = navigator.userAgent + "__" + Math.random();
-            setCookie("userId", userId , 365);
-        }
-        return {
-            userId : userId
-        };
-    })
+angular.module('poolQueue', ['ngCookies'])
     .factory('Parse', function(){
         Parse.initialize("IEnKKbGzw2nj0NsUjwPeBboTuG6HePdAJqFA0Lyj", "uhrhFKOg8xNhluefffKFsXF47X7JHR2ZzvzeAxfy");
         return {
@@ -95,7 +107,7 @@ angular.module('poolQueue', [])
             Query: Parse.Query
         };
     })
-    .controller("MainController", ['$scope', '$interval', 'Parse', MainController])
+    .controller("MainController", ['$scope', '$interval', '$cookies', '$location', 'Parse', MainController])
     .directive("confirmButton", [ConfirmButton])
 ;
 
