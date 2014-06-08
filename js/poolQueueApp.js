@@ -113,7 +113,7 @@ angular.module('poolQueue', ['ngCookies'])
         $locationProvider.html5Mode(true);
     })
     .factory('Parse', function(){
-        Parse.initialize("IEnKKbGzw2nj0NsUjwPeBboTuG6HePdAJqFA0Lyj", "uhrhFKOg8xNhluefffKFsXF47X7JHR2ZzvzeAxfy");
+        Parse.initialize("tUk0p1PFK2PXzOJv4Yp4jV9xKczuxqHhAlLd88Do", "8Q90XyzROD9s5hCgVJe6UL8C01bZa2rQppmfYRJu");
         return {
             Queue: Parse.Object.extend('queue'),
             Query: Parse.Query
