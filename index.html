@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css">
     <style>
         body {
-            padding-top: 50px;
             padding-bottom: 20px;
         }
         [ng-cloak] {
@@ -29,17 +28,14 @@
 
 </head>
 <body ng-app="poolQueue"  ng-controller="MainController">
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href>Pool Queue</a>
-            </div>
-            <div class="navbar-collapse collapse">
-
-            </div><!--/.navbar-collapse -->
-        </div>
-    </div>
     <div class="wrapper">
+        <div class="navbar-static-top transparent" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href><span class="glyphicon glyphicon-list-alt"></span> Pool Queue</a>
+                </div>
+            </div>
+        </div>
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
