@@ -77,7 +77,7 @@ var MainController = function($scope, $timeout, $interval, $cookies, Parse) {
     };
 
     $scope.fetchQueue();
-    $interval($scope.fetchQueue, 30000);
+    $interval($scope.fetchQueue, 20000);
 };
 
 var ConfirmButton = function() {
@@ -129,6 +129,8 @@ var DoubleClickConfirmButton = function($timeout) {
                 button.addClass("btn-danger");
                 button.html("<span class='glyphicon glyphicon-warning-sign'></span> Are you sure?");
                 button.bind('click', function() {
+                    button.html("<span class='glyphicon glyphicon-warning-sign'></span> Deleting...");
+                    button.unbind();
                     scope.action({item: scope.item});
                 });
                 $timeout(function() {
@@ -150,7 +152,7 @@ var DoubleClickConfirmButton = function($timeout) {
     };
 };
 
-angular.module('poolQueue', ['ngCookies'])
+angular.module('poolQueue', ['ngCookies', 'ngAnimate'])
     .factory('Parse', function(){
         Parse.initialize("tUk0p1PFK2PXzOJv4Yp4jV9xKczuxqHhAlLd88Do", "8Q90XyzROD9s5hCgVJe6UL8C01bZa2rQppmfYRJu");
         return {
