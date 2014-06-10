@@ -1,6 +1,9 @@
 html, body {
     height: 100%;
 }
+.capitalize {
+    text-transform: capitalize;
+}
 .navbar-static-top.transparent {
     background-color: transparent;
     position: absolute;

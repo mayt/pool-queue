@@ -82,14 +82,14 @@
                 <div class="panel-body">
                     <div class="row text-center">
                         <div class="col-sm-offset-1 col-sm-4">
-                            <h2 id="{{queue[0].id}}">{{queue[0].attributes.name}}</h2>
+                            <h2 id="{{queue[0].id}}" class="capitalize">{{queue[0].attributes.name}}</h2>
                             <button action="removeFromQueue(item)" item="queue[0]" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Remove</button>
                         </div>
                         <div class="col-sm-2">
                             <h3>vs.</h3>
                         </div>
                         <div class="col-sm-4" >
-                            <h2 ng-if="queue.length > 1" id="{{queue[1].id}}">{{queue[1].attributes.name}}</h2>
+                            <h2 class="capitalize" ng-if="queue.length > 1" id="{{queue[1].id}}">{{queue[1].attributes.name}}</h2>
                             <h2 ng-if="queue.length <= 1">Awaiting Challenger</h2>
                             <button ng-if="queue.length > 1" action="removeFromQueue(item)" item="queue[1]" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Remove</button>
                         </div>
@@ -114,8 +114,8 @@
                             <span class="col-xs-2"></span>
                         </li>
                         <li id="{{item.id}}" class="row list-group-item no-sides" ng-repeat="item in queue" ng-class="{'list-group-item-success': myId == item.id}" ng-if="!item.attributes.playing">
-                            <span class="col-xs-1"><h5>{{$index + 1}}</h5></span>
-                            <span class="col-xs-7"><h4>{{item.attributes.name}} <small ng-if="myId == item.id">My wait time is about ~{{($index - 1) * 10}} minutes</small></h4></span>
+                            <span class="col-xs-1"><h5>{{$index - 1}}</h5></span>
+                            <span class="col-xs-7"><h4 class="capitalize">{{item.attributes.name}} <small ng-if="myId == item.id">My wait time is about ~{{($index - 1) * 10}} minutes</small></h4></span>
                             <span class="col-xs-2"><h5>{{item.createdAt | date:'MMM dd @ h:mma'}}</h5></span>
                             <span class="col-xs-2 text-right">
                                 <button action="removeFromQueue(item)" item="item" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
