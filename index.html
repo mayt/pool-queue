@@ -25,6 +25,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-cookies.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-animate.min.js"></script>
+    <script src="js/angular-timer.min.js"></script>
 
 
 </head>
@@ -111,13 +112,23 @@
                         <li class="row list-group-item no-sides head">
                             <span class="col-xs-1"><h4>#</h4></span>
                             <span class="col-xs-7"><h4>Chumps</h4></span>
-                            <span class="col-xs-2"><h4>Added At</h4></span>
+                            <span class="col-xs-2"><h4>Waited</h4></span>
                             <span class="col-xs-2"></span>
                         </li>
                         <li id="{{item.id}}" class="row list-group-item no-sides" ng-repeat="item in queue" ng-class="{'list-group-item-success': myId == item.id}" ng-if="!item.attributes.playing">
                             <span class="col-xs-1"><h5>{{$index - 1}}</h5></span>
                             <span class="col-xs-7"><h4 class="capitalize">{{item.attributes.name}} <small ng-if="myId == item.id">My wait time is about ~{{($index - 1) * 10}} minutes</small></h4></span>
-                            <span class="col-xs-2"><h5>{{item.createdAt | date:'MMM dd @ h:mma'}}</h5></span>
+                            <span class="col-xs-2"><h5>
+                                <timer start-time="item.createdAt" interval="10000">
+                                    <ng-pluralize count="hours"
+                                                  when="{'0': '',
+                                                         'one': '1 hour ',
+                                                         'other': '{} hours '}"></ng-pluralize>
+                                    <ng-pluralize count="minutes"
+                                                  when="{'0': '0 minutes',
+                                                         'one': '1 minute',
+                                                         'other': '{} minutes'}"></ng-pluralize>
+                                </timer></h5></span>
                             <span class="col-xs-2 text-right">
                                 <button action="removeFromQueue(item)" item="item" confirm-button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
                             </span>

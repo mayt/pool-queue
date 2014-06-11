@@ -72,7 +72,8 @@ var MainController = function($scope, $timeout, $interval, $cookies, Parse) {
             error: function(error){
                 $scope.$apply(function() {
                     $scope.error = error;
-                });            }
+                });
+            }
         });
     };
 
@@ -152,7 +153,7 @@ var DoubleClickConfirmButton = function($timeout) {
     };
 };
 
-angular.module('poolQueue', ['ngCookies', 'ngAnimate'])
+angular.module('poolQueue', ['ngCookies', 'ngAnimate', 'timer'])
     .factory('Parse', function(){
         Parse.initialize("tUk0p1PFK2PXzOJv4Yp4jV9xKczuxqHhAlLd88Do", "8Q90XyzROD9s5hCgVJe6UL8C01bZa2rQppmfYRJu");
         return {
