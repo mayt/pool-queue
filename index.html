@@ -43,11 +43,13 @@
             <div class="container">
                 <div class="row">
                     <h1 class="text-center ">
-                    <span ng-cloak ng-if="queueLength !== undefined" class="animate"><ng-pluralize count="queueLength"
-                                                                                   when="{'0': 'The table is open.',
-                         'one': '1 person is ahead of you.',
-                         'other': '{} people are ahead of you.'}">
-                    </ng-pluralize></span>
+                        <span ng-cloak ng-if="queueLength !== undefined" class="animate">
+                            <ng-pluralize count="queueLength" when="{'0': 'The table is open.',
+                                                                     'one': 'The queue is open.',
+                                                                     '2': '{{queueLength - 1}} person is ahead of you.',
+                                                                     'other': '{{queueLength - 1}} people are ahead of you.'}">
+                            </ng-pluralize>
+                        </span>
                         <span ng-if="queueLength === undefined">Loading chumps...</span>
                     </h1>
                 </div>
